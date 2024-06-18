@@ -1,3 +1,5 @@
+// nav.js
+
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -32,13 +34,14 @@ const NavBar = () => {
             size={24}
             color={selectedTab === tab.name ? 'black' : 'white'}
           />
-          <Text style={[styles.iconText, { color: selectedTab === tab.name ? 'black' : 'white' }]}>{tab.name}</Text>
+          {/* Ensure the tab name is wrapped in a Text component */}
+          <Text style={[styles.iconText, { color: selectedTab === tab.name ? 'black' : 'white' }]}>
+            {tab.name}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>
   );
 };
-
-
 
 export default NavBar;

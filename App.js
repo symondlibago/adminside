@@ -1,4 +1,5 @@
-// Import necessary modules
+// App.js
+
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -6,6 +7,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import CustomDrawerContent from './sidebar'; // Assuming sidebar.js is in the same directory
 import NavBar from './nav'; // Assuming nav.js is in the same directory
+import MyEventScreen from './myevent'; // Import MyEventScreen component
 
 const Drawer = createDrawerNavigator();
 
@@ -17,7 +19,6 @@ const MainScreen = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
         <Ionicons name="menu" size={32} color="black" />
       </TouchableOpacity>
-
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Main Screen Content</Text>
       </View>
@@ -32,6 +33,8 @@ const App = () => {
       <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
         {/* Main screen */}
         <Drawer.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
+        {/* My Event screen */}
+        <Drawer.Screen name="MyEventScreen" component={MyEventScreen} options={{ headerShown: false }} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
