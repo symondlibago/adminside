@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import CustomDrawerContent from './sidebar'; // Assuming sidebar.js is in the same directory
 import NavBar from './nav'; // Assuming nav.js is in the same directory
 import MyEventScreen from './myevent'; // Import MyEventScreen component
+import EditScreen from './edit'; // Import EditScreen component
 
 const Drawer = createDrawerNavigator();
 
@@ -35,6 +36,8 @@ const App = () => {
         <Drawer.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
         {/* My Event screen */}
         <Drawer.Screen name="MyEventScreen" component={MyEventScreen} options={{ headerShown: false }} />
+        {/* Edit Screen */}
+        <Drawer.Screen name="EditScreen" component={EditScreen} options={{ headerShown: false }} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
