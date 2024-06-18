@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// Import necessary modules
+import React from 'react';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Ionicons } from '@expo/vector-icons';
+import CustomDrawerContent from './sidebar'; // Assuming sidebar.js is in the same directory
+import NavBar from './nav'; // Assuming nav.js is in the same directory
 
-export default function App() {
+const Drawer = createDrawerNavigator();
+
+// Main Screen component with Drawer Menu button and Bottom Navigation
+const MainScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1 }}>
+      {/* Burger icon to open sidebar */}
+      <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
+        <Ionicons name="menu" size={32} color="black" />
+      </TouchableOpacity>
+
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Main Screen Content</Text>
+      </View>
+      <NavBar />
     </View>
   );
-}
+};
 
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
+        {/* Main screen */}
+        <Drawer.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+};
+
+// Styles for your screen components
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  menuButton: {
+    position: 'absolute',
+    top: 40,
+    left: 20,
+    zIndex: 1,
   },
 });
+
+export default App;
