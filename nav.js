@@ -1,9 +1,9 @@
 // nav.js
 
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import styles from './style';
+import styles from './style'; // Make sure to have styles for this component
 
 const NavBar = () => {
   const [selectedTab, setSelectedTab] = useState('Home');
@@ -34,7 +34,6 @@ const NavBar = () => {
             size={24}
             color={selectedTab === tab.name ? 'black' : 'white'}
           />
-          {/* Ensure the tab name is wrapped in a Text component */}
           <Text style={[styles.iconText, { color: selectedTab === tab.name ? 'black' : 'white' }]}>
             {tab.name}
           </Text>

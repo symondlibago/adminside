@@ -5,14 +5,16 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
-import CustomDrawerContent from './sidebar'; // Assuming sidebar.js is in the same directory
-import NavBar from './nav'; // Assuming nav.js is in the same directory
-import MyEventScreen from './myevent'; // Import MyEventScreen component
-import EditScreen from './edit'; // Import EditScreen component
+import CustomDrawerContent from './sidebar';
+import NavBar from './nav';
+import MyEventScreen from './myevent';
+import EditScreen from './edit';
+import Profile from './profile';
+import Notifications from './notification';
+import Settings from './settings';
 
 const Drawer = createDrawerNavigator();
 
-// Main Screen component with Drawer Menu button and Bottom Navigation
 const MainScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
@@ -32,18 +34,18 @@ const App = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-        {/* Main screen */}
         <Drawer.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
-        {/* My Event screen */}
         <Drawer.Screen name="MyEventScreen" component={MyEventScreen} options={{ headerShown: false }} />
-        {/* Edit Screen */}
         <Drawer.Screen name="EditScreen" component={EditScreen} options={{ headerShown: false }} />
+        <Drawer.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+        <Drawer.Screen name="Notifications" component={Notifications} options={{ headerShown: false }} />
+        <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
+        
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
 
-// Styles for your screen components
 const styles = StyleSheet.create({
   menuButton: {
     position: 'absolute',
