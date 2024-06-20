@@ -12,6 +12,11 @@ import EditScreen from './edit';
 import Profile from './profile';
 import Notifications from './notification';
 import Settings from './settings';
+import Feedback from './feedback';
+import Budget from './budget';
+import Inventory from './inventory';
+import Attendees from './attendee';
+import Dashboard from './dashboard';
 
 const Drawer = createDrawerNavigator();
 
@@ -40,6 +45,11 @@ const App = () => {
         <Drawer.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
         <Drawer.Screen name="Notifications" component={Notifications} options={{ headerShown: false }} />
         <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
+        <Drawer.Screen name="Feedback" component={Feedback} options={{ headerShown: false }} />
+        <Drawer.Screen name="Budget" component={Budget} options={{ headerShown: false }} />
+        <Drawer.Screen name="Inventory" component={Inventory} options={{ headerShown: false }} />
+        <Drawer.Screen name="Attendees" component={Attendees} options={{ headerShown: false }} />
+        <Drawer.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
         
       </Drawer.Navigator>
     </NavigationContainer>

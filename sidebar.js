@@ -47,7 +47,7 @@ return (
 </View>
   <View style={styles.drawerSeparator} />
   <DrawerItem icon="person-circle" label="Profile" screenName="Profile" />
-  <DrawerItem icon="grid" label="Dashboard" screenName="Home" />
+  <DrawerItem icon="grid" label="Dashboard" screenName="Dashboard" />
   <DrawerItem icon="notifications" label="Notification" screenName="Notifications" />
   <DrawerItem icon="calendar" label="My Events" screenName="Events" />
   <DrawerItem icon="person" label="Attendee Tracker" screenName="Attendees" />
