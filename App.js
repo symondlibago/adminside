@@ -24,6 +24,7 @@ import About from './about';
 import Contact from './contact';
 import FindEvent from './findevent';
 import Create from './create';
+import ViewSched from './viewsched';
 
 
 
@@ -66,6 +67,8 @@ const App = () => {
         <Drawer.Screen name="Contact" component={Contact} options={{ headerShown: false }} /> 
         <Drawer.Screen name="FindEvent" component={FindEvent} options={{ headerShown: false }} />
         <Drawer.Screen name="Create" component={Create} options={{ headerShown: false }} />
+        <Drawer.Screen name="ViewSched" component={ViewSched} options={{ headerShown: false }} />
+
         
 
         
