@@ -35,11 +35,9 @@ const MainScreen = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       {/* Burger icon to open sidebar */}
       <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
-        <Ionicons name="menu" size={32} color="black" />
+        <Ionicons name="menu" size={32} color="white" />
       </TouchableOpacity>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Main Screen Content</Text>
-      </View>
+      <Dashboard />
       <NavBar />
     </View>
   );

@@ -1,16 +1,15 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Alert } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Import Ionicons for the burger icon
+import { Ionicons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
 import NavBar from './nav';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Event = () => {
-  const navigation = useNavigation(); // Hook to use navigation
+  const navigation = useNavigation();
 
   const handleImagePress = (eventName) => {
     Alert.alert(`${eventName} Image Clicked`);
-    // Handle navigation or any other logic based on the image press
   };
 
   return (
@@ -158,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   eventInfoText: {
-    fontSize: 12,  // Smaller font size for longer text
+    fontSize: 12,  
     fontWeight: 'bold',
     marginLeft: 5,
   },
@@ -186,11 +185,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: 'white', // Change text color to white
+    color: 'white', 
   },
   text: {
     fontSize: 16,
-    color: 'white', // Change text color to white
+    color: 'white', 
   },
   menuButton: {
     position: 'absolute',

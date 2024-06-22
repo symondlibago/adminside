@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import styles from './style'; // Make sure to have styles for this component
+import styles from './style'; 
 
 const NavBar = () => {
   const navigation = useNavigation();
   const [selectedTab, setSelectedTab] = useState('Home');
 
-  // Define a mapping of tab names to screen names
   const tabScreenMapping = {
     Home: 'Main',
     Event: 'Event',
@@ -20,10 +19,10 @@ const NavBar = () => {
 
   const handleTabPress = (tab) => {
     if (selectedTab !== tab) {
-      setSelectedTab(tab); // Update the state immediately
+      setSelectedTab(tab); 
       const screenName = tabScreenMapping[tab];
       if (screenName) {
-        navigation.navigate(screenName); // Navigate to the appropriate screen
+        navigation.navigate(screenName); 
       }
     }
   };

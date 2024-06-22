@@ -1,5 +1,4 @@
 
-// sidebar.js (CustomDrawerContent)
 
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, Image } from 'react-native';
@@ -20,8 +19,8 @@ screenName === selectedItem && { backgroundColor: '#FFC42B' },
 ]}
 onPress={() => {
 if (screenName === 'Events') {
-navigation.navigate('MyEventScreen'); // Navigate to MyEventScreen when 'My Events' is clicked
-setSelectedItem(screenName); // Optional: If you want to set the selected item
+navigation.navigate('MyEventScreen'); 
+setSelectedItem(screenName); 
 } else {
 navigation.navigate(screenName);
 setSelectedItem(screenName);
