@@ -1,20 +1,26 @@
-// dashboard.js
-
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
 import { Avatar, Provider as PaperProvider } from 'react-native-paper'; 
-import NavBar from './nav'; 
-import FindEvent from './findevent';
-import Create from './create';
+import Createpackage from './createpackage';
+import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
+import Package from './package';
+
+
+LocaleConfig.locales['en'] = {
+  monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  monthNamesShort: ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'],
+  dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  dayNamesShort: ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'],
+  today: 'Today'
+};
+LocaleConfig.defaultLocale = 'en';
 
 const Dashboard = () => {
   const navigation = useNavigation(); 
 
-  const handleViewAllPress = (section) => {
-    console.log(`View All ${section} clicked`);
-  };
 
   const [likedEvents, setLikedEvents] = useState({});
   const [buttonStates, setButtonStates] = useState([false, false, false, false]);
@@ -33,87 +39,77 @@ const Dashboard = () => {
       return newState;
     });
   };
+  const handleIconPress = (page) => {
+    navigation.navigate(page);
+  };
 
   const events = [
     {
       id: 1,
       image: require("./assets/event1.png"),
-      title: "Mr. & Mrs. Malik Wedding",
-      date: "23 Sept, 25",
-      location: "Cagayan de Oro City"
+      title: "Wedding Package",
     },
     {
       id: 2,
       image: require("./assets/event2.png"),
-      title: "Barbella’s Birthday",
-      date: "12 August, 23",
-      location: "Cagayan de Oro City"
+      title: "Birthday Package",
     },
     {
       id: 3,
       image: require("./assets/event3.png"),
-      title: "Class of 1979 Reunion",
-      date: "25-27 July, 23",
-      location: "Cagayan de Oro City"
+      title: "Reunion Package",
     }
   ];
 
+  const markedDates = {
+    '2023-07-16': {
+      dots: [
+        { key: 'vacation', color: 'red' },
+        { key: 'massage', color: 'blue' },
+        { key: 'workout', color: 'green' },
+      ]
+    },
+    '2023-07-20': {
+      dots: [
+        { key: 'vacation', color: 'red' },
+        { key: 'workout', color: 'green' },
+      ]
+    },
+    '2023-07-25': {
+      dots: [
+        { key: 'massage', color: 'blue' },
+      ]
+    },
+    // Add more marked dates as needed
+  };
+
   return (
+    
     <PaperProvider>
       <View style={styles.container}>
-        {/* Burger icon to open sidebar */}
+      <LinearGradient
+      colors={['#2A2600', '#000000']} // Define the gradient colors
+      start={{ x: 0, y: 0 }} // Top
+      end={{ x: 0, y: 1 }}   // Bottom
+      style={styles.gradientContainer}
+    >
+        <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
-          <Ionicons name="menu" size={32} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.header}>Dashboard Screen</Text>
-
-        <View style={styles.profileSection}>
-          <Avatar.Image
-            size={50}
-            source={require("./assets/pro_pic.png")}
-            style={styles.profilePicture}
-          />
-          <View style={styles.welcomeUsername}>
-            <Text style={styles.welcomeText}>Welcome</Text>
-            <Text style={styles.usernameText}>Username</Text>
-          </View>
-          <View style={styles.spacer} />
-          <View style={styles.locationContainer}>
-            <Text style={styles.locationText}>Cagayan de Oro</Text>
-            <MaterialCommunityIcons
-              name="map-marker"
-              color="#FFC42B"
-              size={23}
-              style={styles.locationIcon}
-            />
-          </View>
-        </View>
-
-        {/* Search Input */}
-        <View style={styles.searchContainer}>
-          <View style={styles.inputContainer}>
-            <TouchableOpacity 
-              style={styles.findEventsButton}
-              onPress={() => navigation.navigate(FindEvent)} // Navigate to Find Event screen
-            >
-              <MaterialCommunityIcons name="magnify" color="#000" size={20} />
-              <Text style={styles.findEventsButtonText}>Find Events</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.createButton}
-              onPress={() => navigation.navigate(Create)} // Navigate to Create screen
-            >
-              <MaterialCommunityIcons name="plus" color="#000" size={20} />
-              <Text style={styles.createButtonText}>Create</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionText}>Popular Events</Text>
-          <TouchableOpacity onPress={() => handleViewAllPress("Popular Events")}>
-            <Text style={styles.viewAllText}>View All</Text>
+            <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
+          <Image source={require("./assets/logo.png")} style={styles.logo} />
+          <View style={styles.iconsContainer}>
+            <TouchableOpacity onPress={() => handleIconPress('Messages')}>
+              <Ionicons name="chatbubble-outline" size={30} color="white" style={styles.icon} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIconPress('Notification')}>
+              <Ionicons name="notifications-outline" size={30} color="white" style={styles.icon} />
+            </TouchableOpacity>
+          </View>
         </View>
+
+        {/* Event Packages section */}
+        <Text style={styles.sectionText}>Event Packages</Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.scrollView}>
           {events.map(event => (
             <View key={event.id} style={styles.eventCard}>
@@ -128,63 +124,99 @@ const Dashboard = () => {
               <Text style={styles.eventTitle}>{event.title}</Text>
               <View style={styles.eventDetailRow}>
                 <View style={styles.eventDetailContainer}>
-                  <MaterialCommunityIcons name="calendar" color="#2A93D5" size={16} />
                   <Text style={styles.eventDetailText}>{event.date}</Text>
                 </View>
                 <View style={styles.eventDetailContainer}>
-                  <MaterialCommunityIcons name="map-marker" color="#2A93D5" size={16} />
                   <Text style={styles.eventDetailText}>{event.location}</Text>
                 </View>
               </View>
             </View>
           ))}
         </ScrollView>
-        <View style={styles.chooseEventContainer}>
-          <Text style={styles.sectionTextChooseEvent}>Choose Event</Text>
-          <TouchableOpacity onPress={() => handleViewAllPress("Choose Event")}>
-            <Text style={styles.viewAllText}>View All</Text>
+
+        {/* Find Events and Create buttons */}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity 
+            style={styles.findEventsButton}
+            onPress={() => navigation.navigate(Createpackage)} // Navigate to Find Event screen
+          >
+            <MaterialCommunityIcons name="plus" color="#000" size={20} />
+            
+            <Text style={styles.findEventsButtonText}>Create Pacakge</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.createButton}
+            onPress={() => navigation.navigate(Package)} // Navigate to Create screen
+          >
+            <MaterialCommunityIcons name="magnify" color="#000" size={20} />
+
+            <Text style={styles.createButtonText}>Pacakge</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.buttonScrollView}>
-          {["Wedding", "Birthday", "Reunion", "Debut"].map((buttonLabel, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.buttonContainer,
-                buttonStates[index] ? styles.buttonPressed : styles.buttonNormal
-              ]}
-              onPress={() => handleButtonPress(index)}
-            >
-              <Text
-                style={[
-                  styles.buttonText,
-                  buttonStates[index] ? styles.buttonTextPressed : styles.buttonTextNormal
-                ]}
-              >
-                {buttonLabel}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-        <View style={styles.boxContainer}>
-          <Image source={require("./assets/event3.png")} style={styles.boxImage} />
-          <View style={styles.boxTextContainer}>
-            <Text style={styles.boxTitle}>Mr. & Mrs. Ambot Lang 2024</Text>
-            <View style={styles.boxDetailRow}>
-              <MaterialCommunityIcons name="calendar" color="#2A93D5" size={16} />
-              <Text style={styles.boxDetailText}>25 July, 24</Text>
+
+        {/* Event Calendar */}
+        <Text style={styles.sectionText}>Event Calendar</Text>
+        <View style={styles.profileCalendarContainer}>
+          <View style={styles.profileSection}>
+            <Avatar.Image
+              size={50}
+              source={require("./assets/pro_pic.png")}
+              style={styles.profilePicture}
+            />
+            <View style={styles.welcomeUsername}>
+              <Text style={styles.welcomeText}>Welcome</Text>
+              <Text style={styles.usernameText}>Username</Text>
             </View>
-            <View style={styles.boxDetailRow}>
-              <MaterialCommunityIcons name="map-marker" color="#2A93D5" size={16} />
-              <Text style={styles.boxDetailText}>LK Luxe Hotel</Text>
+            <View style={styles.spacer} />
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationText}>Cagayan de Oro</Text>
+              <MaterialCommunityIcons
+                name="map-marker"
+                color="#FFC42B"
+                size={23}
+                style={styles.locationIcon}
+              />
             </View>
           </View>
+          <Calendar
+            theme={{
+              backgroundColor: '#6B6B6B',
+              calendarBackground: '#6B6B6B',
+              textSectionTitleColor: '#FFC42B',
+              textSectionTitleDisabledColor: '#d9e1e8',
+              selectedDayBackgroundColor: '#00adf5',
+              selectedDayTextColor: '#ffffff',
+              todayTextColor: '#FFC42B',
+              dayTextColor: '#ffffff',
+              textDisabledColor: '#d9e1e8',
+              dotColor: '#FFC42B',
+              selectedDotColor: '#ffffff',
+              arrowColor: '#FFC42B',
+              disabledArrowColor: '#d9e1e8',
+              monthTextColor: '#FFC42B',
+              indicatorColor: '#FFC42B',
+              textDayFontFamily: 'monospace',
+              textMonthFontFamily: 'monospace',
+              textDayHeaderFontFamily: 'monospace',
+              textDayFontWeight: '300',
+              textMonthFontWeight: 'bold',
+              textDayHeaderFontWeight: '300',
+              textDayFontSize: 16,
+              textMonthFontSize: 16,
+              textDayHeaderFontSize: 16
+            }}
+            markingType={'multi-dot'}
+            markedDates={markedDates}
+          />
+          
         </View>
-        <NavBar />
+        </LinearGradient>
+
       </View>
+      
     </PaperProvider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -192,93 +224,31 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     padding: 20,
   },
-  profileSection: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  profilePicture: {
-    marginRight: 10,
-    marginTop: 20,
-  },
-  welcomeUsername: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    marginRight: "auto",
-    marginTop: 20,
-  },
-  welcomeText: {
-    fontSize: 12,
-    color: "#FFF",
-  },
-  usernameText: {
-    fontSize: 12,
-    color: "#FFF",
-    fontWeight: "600",
-  },
-  spacer: {
-    flex: 1,
-  },
-  locationContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  locationText: {
-    fontSize: 12,
-    color: "#FFF",
-    textDecorationLine: "underline",
-    marginRight: 5,
-    marginTop: 20,
-  },
-  locationIcon: {
-    marginRight: 5,
-    marginTop: 20,
-  },
-  searchContainer: {
-    marginTop: 20,
+  header: {
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#000000",
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    width: 250,
+  menuButton: {
+    marginLeft: 0,
   },
-  searchIcon: {
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  input: {
-    flex: 1,
+  logo: {
+    width: 120,
     height: 40,
-    color: "#FFF",
+    marginLeft: 40,
+    
   },
-  sectionContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
-    marginBottom: 10,
+  iconsContainer: {
+    flexDirection: 'row',
+  },
+  icon: {
+    marginLeft: 15,
   },
   sectionText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#FFF",
-  },
-  sectionTextChooseEvent: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#FFF",
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  viewAllText: {
-    fontSize: 12,
-    color: "#2A93D5",
-    textDecorationLine: "underline",
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFF',
+    marginVertical: 10,
   },
   scrollView: {
     marginBottom: 20,
@@ -327,96 +297,10 @@ const styles = StyleSheet.create({
     color: "#FFF",
     marginLeft: 5,
   },
-  chooseEventContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  buttonScrollView: {
-    marginBottom:10,
-  },
   buttonContainer: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    marginRight: 10,
-  },
-  buttonNormal: {
-    borderColor: "#FFC42B",
-    backgroundColor: "#000",
-  },
-  buttonPressed: {
-    borderColor: "#FFC42B",
-    backgroundColor: "#FFC42B",
-  },
-  buttonText: {
-    fontSize: 14,
-  },
-  buttonTextNormal: {
-    color: "#FFF",
-  },
-  buttonTextPressed: {
-    color: "#000",
-  },
-  boxContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 10,
-  },
-  boxImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 10,
-    marginRight: 10,
-  },
-  boxTextContainer: {
-    flex: 1,
-  },
-  boxTitle: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#FFF",
-    marginBottom: 5,
-  },
-  boxDetailRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  boxDetailText: {
-    fontSize: 12,
-    color: "#FFF",
-    marginLeft: 5,
-  },
-  header: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#FFF",
-    textAlign: "center",
-    marginTop: 20,
-  },
-  text: {
-    fontSize: 14,
-    color: "#FFF",
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  menuButton: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    zIndex: 1,
-  },
-  searchContainer: {
-    marginTop: 20,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center', // Center horizontally
+    justifyContent: 'space-between',
+    marginBottom: 20,
   },
   findEventsButton: {
     backgroundColor: "#FFC42B",
@@ -425,7 +309,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,
-    marginRight: 10,
+    marginRight: 5,
   },
   findEventsButtonText: {
     color: "#000",
@@ -434,7 +318,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   createButton: {
-    backgroundColor: "#FFC42B",
+    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
@@ -446,7 +330,52 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginLeft: 5,
-  }
+  },
+  profileCalendarContainer: {
+    backgroundColor: '#6B6B6B',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 20,
+  },
+  profileSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#2A2600",
+    padding: 10,
+    borderRadius: 10,
+  },
+  profilePicture: {
+    marginRight: 10,
+  },
+  welcomeUsername: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  welcomeText: {
+    fontSize: 12,
+    color: "#FFF",
+  },
+  usernameText: {
+    fontSize: 12,
+    color: "#FFF",
+    fontWeight: "600",
+  },
+  spacer: {
+    flex: 1,
+  },
+  locationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  locationText: {
+    fontSize: 12,
+    color: "#FFF",
+    textDecorationLine: "underline",
+  },
+  locationIcon: {
+    marginLeft: 5,
+  },
 });
 
 export default Dashboard;

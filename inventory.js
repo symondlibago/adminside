@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Import Ionicons for the burger icon
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 import NavBar from './nav';
 
 const inventoryData = [
@@ -34,13 +35,23 @@ const Inventory = () => {
   const totalMissing = inventoryData.filter(item => item.status === "Missing").length;
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={['#2A2600', '#000000']}  // Define the gradient colors for the background
+      start={{ x: 0, y: 0 }}  // Top
+      end={{ x: 0, y: 1 }}    // Bottom
+      style={styles.gradientContainer}
+    >
       {/* Burger icon to open sidebar */}
-      <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
-        <Ionicons name="menu" size={32} color="white" />
-      </TouchableOpacity>
-      <Text style={styles.header}> </Text>
-      <Text style={styles.text}> </Text>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
+          <Ionicons name="menu" size={32} color="white" />
+        </TouchableOpacity>
+        <Image source={require("./assets/logo.png")} style={styles.logo} />
+        <View style={styles.iconsContainer}>
+          <Ionicons name="chatbubble-outline" size={30} color="white" style={styles.icon} />
+          <Ionicons name="notifications-outline" size={30} color="white" style={styles.icon} />
+        </View>
+      </View>
       <NavBar />
 
       <ScrollView style={styles.scrollContainer}>
@@ -74,24 +85,21 @@ const Inventory = () => {
         </View>
       </ScrollView>
       <NavBar />
-
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  gradientContainer: {
     flex: 1,
-    backgroundColor: "#333",
   },
   scrollContainer: {
     flex: 1,
-    backgroundColor: "#333",
   },
   headerSection: {
     marginTop: 10,
     padding: 20,
-    backgroundColor: "#444",
+    borderRadius: 10,
   },
   headerText: {
     fontSize: 24,
@@ -99,14 +107,12 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   headerHighlight: {
-    backgroundColor: "#ff0",
-    color: "#000",
+    color: "white",
     paddingHorizontal: 5,
   },
   table: {
     margin: 20,
     padding: 10,
-    backgroundColor: "#555",
     borderRadius: 10,
   },
   tableHeader: {
@@ -134,7 +140,6 @@ const styles = StyleSheet.create({
   summary: {
     margin: 20,
     padding: 10,
-    backgroundColor: "#666",
     borderRadius: 10,
   },
   summaryText: {
@@ -142,21 +147,34 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginVertical: 5,
   },
-  menuButton: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    zIndex: 1,
-  },
+  
   text: {
     fontSize: 16,
     color: 'white',
   },
+  menuButton: {
+    padding: 5,
+  },
   header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    backgroundColor: 'transparent',
+  },
+  logo: {
+    width: 120,
+    height: 50,
+    marginLeft: 40,
+
+  },
+  iconsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    marginHorizontal: 5,
   },
 });
 

@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput,
+  TextInput, Alert
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const Settings = () => {
+const EditProfile = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -20,16 +20,11 @@ const Settings = () => {
   const [contactNumber, setContactNumber] = useState('');
 
   const handleSubmit = () => {
-    // Handle Submit button press
-    console.log('Submit button pressed');
-    // Add logic for form submission
+    // Handle the functionality to pick an image for the cover photo
+    Alert.alert('Profile edited successfully');
   };
 
-  const handleCreatePortfolio = () => {
-    // Handle Create New Service Portfolio button press
-    console.log('Create New Service Portfolio button pressed');
-    // Add navigation or logic for creating a new service portfolio
-  };
+  
 
   return (
     <LinearGradient
@@ -55,7 +50,7 @@ const Settings = () => {
             </View>
           </View>
 
-          <Text style={styles.headerText}>Settings</Text>
+          <Text style={styles.headerText}>Edit Profile</Text>
           <View style={styles.profileContainer}>
             <Image
               source={require('./assets/pro_pic.png')}
@@ -116,14 +111,14 @@ const Settings = () => {
               style={[styles.button, styles.submitButton]}
               onPress={handleSubmit}
             >
-              <Text style={styles.buttonText}>Submit</Text>
+              <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.createPortfolioButton}
-                onPress={() => navigation.navigate('ServicePortfolio')}
+                onPress={() => navigation.navigate('AddAnotherAcc')}
             >
               <Ionicons name="add" size={24} color="white" style={styles.icon} />
-              <Text style={styles.createPortfolioText}>Create New Service Portfolio</Text>
+              <Text style={styles.createPortfolioText}>Add Another Account</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -253,4 +248,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Settings;
+export default EditProfile;

@@ -1,225 +1,346 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, FlatList, Text, Modal, TouchableHighlight } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Import Ionicons for the burger icon
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import NavBar from './nav'; // Assuming nav.js is correctly implemented and imported
+import { LinearGradient } from 'expo-linear-gradient';
+import pro_pic from './assets/pro_pic.png';
 
-// Initial notifications data
-const initialNotifications = [
-  {
-    id: '1',
-    source: 'Event Update',
-    description: 'Buffet Party has ended.',
-    read: false
-  },
-  {
-    id: '2',
-    source: 'Event Update',
-    description: 'Kate and Mark`s wedding has started.',
-    read: false
-  },
-  {
-    id: '3',
-    source: 'Billing',
-    description: 'The total cost of the event has been updated.',
-    read: false
-  },
-  {
-    id: '4',
-    source: 'Admin Feedback',
-    description: 'Admin suggested Service Provider for your event.',
-    read: false
-  },
-  {
-    id: '5',
-    source: 'Billing',
-    description: 'The total cost of the event has been updated.',
-    read: false
-  },
-  {
-    id: '6',
-    source: 'Event Update',
-    description: 'This event has ended. Thank you for participating!',
-    read: false
-  },
-  {
-    id: '7',
-    source: 'Participants Feedback',
-    description: '10 people sent feedback for the event.',
-    read: false
-  },
-  {
-    id: '8',
-    source: 'Participants Feedback',
-    description: '12 people sent feedback for the event.',
-    read: false
-  }
-];
+const Notification = () => {
+  const navigation = useNavigation();
+  const [selectedTab, setSelectedTab] = useState('All');
 
-const Notifications = () => {
-  const navigation = useNavigation(); // Hook to use navigation
-
-  // State to manage notifications and selected notification
-  const [notifications, setNotifications] = useState(initialNotifications);
-  const [selectedNotification, setSelectedNotification] = useState(null);
-
-  // Function to handle notification press
-  const handleNotificationPress = (item) => {
-    setSelectedNotification(item);
-    const updatedNotifications = notifications.map(notification =>
-      notification.id === item.id ? { ...notification, read: true } : notification
-    );
-    setNotifications(updatedNotifications);
+  const notificationsData = {
+    'This Week': [
+      {
+        id: '1',
+        title: 'Jane Wedding',
+        joined: 'Diwata Pares, Heart Catering, and 35 others',
+        daysAgo: '1d Ago',
+        rightImage: pro_pic,
+      },
+      {
+        id: '2',
+        title: 'John Birthday',
+        joined: 'Happy Cakes, DJ Mix, and 20 others',
+        daysAgo: '3d Ago',
+        rightImage: pro_pic,
+      },
+    ],
+    'Booking Request': [
+      {
+        id: '1',
+        name: 'Jane Doe',
+        title: 'Wedding',
+        daysAgo: '2d Ago',
+      },
+      {
+        id: '2',
+        name: 'John Smith',
+        title: 'Birthday',
+        daysAgo: '4d Ago',
+      },
+    ],
+    'Service Provider Request': [
+      {
+        id: '1',
+        name: 'Emily Johnson',
+        service: 'Photographer',
+        daysAgo: '5d Ago',
+      },
+      {
+        id: '2',
+        name: 'Michael Brown',
+        service: 'Food Catering',
+        daysAgo: '6d Ago',
+      },
+    ],
+    'All': [
+      {
+        id: '1',
+        title: 'Jane Wedding',
+        joined: 'Diwata Pares, Heart Catering, and 35 others',
+        daysAgo: '1d Ago',
+        rightImage: pro_pic,
+      },
+      {
+        id: '2',
+        name: 'Jane Doe',
+        title: 'Wedding',
+        daysAgo: '2d Ago',
+      },
+      {
+        id: '3',
+        name: 'Emily Johnson',
+        service: 'Photographer',
+        daysAgo: '5d Ago',
+      },
+    ],
   };
 
-  // Function to render individual notification item
-  const renderNotification = ({ item }) => (
-    <TouchableOpacity
-      style={[
-        styles.notificationItem,
-        item.read && styles.notificationRead 
-      ]}
-      onPress={() => handleNotificationPress(item)}
-    >
-      <Text style={styles.notificationSource}>{item.source}</Text>
-      <Text style={styles.notificationDescription}>
-        {item.description.split(' ').slice(0, 10).join(' ')}...
-      </Text>
-    </TouchableOpacity>
-  );
-
-  return (
-    <View style={styles.container}>
-      {/* Burger icon to open sidebar */}
-      <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
-        <Ionicons name="menu" size={32} color="white" />
-      </TouchableOpacity>
-
-      <View style={styles.spacer} />
-
-      <FlatList
-        data={notifications}
-        renderItem={renderNotification}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingBottom: 60 }} // Adjusted to leave space for bottom navbar
-      />
-
-      {selectedNotification && (
-        <Modal
-          visible={true}
-          transparent={true}
-          animationType="slide"
-          onRequestClose={() => setSelectedNotification(null)}
-        >
-          <View style={styles.modalBackground}>
-            <View style={styles.modalContent}>
-              <TouchableHighlight
-                style={styles.closeButton}
-                onPress={() => setSelectedNotification(null)}
-                underlayColor='#ccc'
-              >
-                <Text style={styles.closeButtonText}>X</Text>
-              </TouchableHighlight>
-              <Text style={styles.modalTitle}>{selectedNotification.source}</Text>
-              <Text style={styles.modalDescription}>{selectedNotification.description}</Text>
-              <TouchableOpacity style={styles.goToButton} onPress={() => {}}>
-                <Text style={styles.goToButtonText}>Go to Notification</Text>
+  const renderContent = () => {
+    switch (selectedTab) {
+      case 'This Week':
+        return notificationsData['This Week'].map(notification => (
+          <View key={notification.id} style={styles.notificationBox}>
+            <View style={styles.leftContainer}>
+              <Image source={pro_pic} style={styles.profilePicture} />
+              <View style={styles.notificationDetails}>
+                <Text style={styles.notificationTitle}>{notification.title}</Text>
+                <Text style={styles.notificationJoined}>{notification.joined}</Text>
+              </View>
+            </View>
+            {notification.rightImage && (
+              <View style={styles.rightContainer}>
+                <Image source={notification.rightImage} style={styles.rightImage} />
+                <Text style={styles.daysAgo}>{notification.daysAgo}</Text>
+              </View>
+            )}
+          </View>
+        ));
+      case 'Booking Request':
+        return notificationsData['Booking Request'].map(notification => (
+          <View key={notification.id} style={styles.notificationBox}>
+            <View style={styles.leftContainer}>
+              <Image source={pro_pic} style={styles.profilePicture} />
+              <View style={styles.notificationDetails}>
+                <Text style={styles.notificationName}>{notification.name}</Text>
+                <Text style={styles.notificationTitle}>{notification.title}</Text>
+                <Text style={styles.daysAgo}>{notification.daysAgo}</Text>
+              </View>
+            </View>
+            <View style={styles.buttonsContainer}>
+              <TouchableOpacity style={styles.acceptButton}>
+                <Text style={styles.buttonText}>Accept</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.declineButton}>
+                <Text style={styles.buttonText}>Decline</Text>
               </TouchableOpacity>
             </View>
           </View>
-        </Modal>
-      )}
+        ));
+      case 'Service Provider Request':
+        return notificationsData['Service Provider Request'].map(notification => (
+          <View key={notification.id} style={styles.notificationBox}>
+            <View style={styles.leftContainer}>
+              <Image source={pro_pic} style={styles.profilePicture} />
+              <View style={styles.notificationDetails}>
+                <Text style={styles.notificationName}>{notification.name}</Text>
+                <Text style={styles.notificationService}>{notification.service}</Text>
+                <Text style={styles.daysAgo}>{notification.daysAgo}</Text>
+              </View>
+            </View>
+            <View style={styles.buttonsContainer}>
+              <TouchableOpacity style={styles.acceptButton}>
+                <Text style={styles.buttonText}>Accept</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.declineButton}>
+                <Text style={styles.buttonText}>Decline</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ));
+      case 'All':
+        return notificationsData['All'].map(notification => (
+          <View key={notification.id} style={styles.notificationBox}>
+            <View style={styles.leftContainer}>
+              {notification.profilePicture ? (
+                <Image source={notification.profilePicture} style={styles.profilePicture} />
+              ) : (
+                <Image source={pro_pic} style={styles.profilePicture} />
+              )}
+              <View style={styles.notificationDetails}>
+                {notification.title && <Text style={styles.notificationTitle}>{notification.title}</Text>}
+                {notification.name && <Text style={styles.notificationName}>{notification.name}</Text>}
+                {notification.service && <Text style={styles.notificationService}>{notification.service}</Text>}
+                {notification.joined && <Text style={styles.notificationJoined}>{notification.joined}</Text>}
+                <Text style={styles.daysAgo}>{notification.daysAgo}</Text>
+              </View>
+            </View>
+            {notification.rightImage && (
+              <View style={styles.rightContainer}>
+                <Image source={notification.rightImage} style={styles.rightImage} />
+              </View>
+            )}
+          </View>
+        ));
+      default:
+        return null;
+    }
+  };
 
-      {/* Bottom Navbar */}
-      <NavBar />
-    </View>
+  return (
+    <LinearGradient
+      colors={['#0D0D0D', '#1A1A1A']} // Gradient colors
+      style={styles.container}
+    >
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={32} color="white" />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>Notification</Text>
+      </View>
+
+      <View style={styles.tabsContainer}>
+        <ScrollView
+          horizontal
+          contentContainerStyle={styles.tabsContentContainer}
+          showsHorizontalScrollIndicator={false}
+        >
+          {['All', 'This Week', 'Booking Request', 'Service Provider Request'].map(tab => (
+            <TouchableOpacity
+              key={tab}
+              style={[
+                styles.tabButton,
+                {
+                  backgroundColor: selectedTab === tab ? '#FFC42B' : '#1A1A1A', // Updated background color
+                  borderColor: selectedTab === tab ? '#FFC42B' : '#FFFFFF',
+                }
+              ]}
+              onPress={() => setSelectedTab(tab)}
+            >
+              <Text style={[
+                styles.tabText,
+                {
+                  color: selectedTab === tab ? '#000000' : '#FFFFFF',
+                }
+              ]}>
+                {tab}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+
+      <ScrollView
+        contentContainerStyle={styles.contentContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        {renderContent()}
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000', 
   },
-  menuButton: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    zIndex: 1,
-  },
-  spacer: {
-    height: 80, 
-  },
-  notificationItem: {
-    backgroundColor: '#fff',
-    padding: 15,
-    marginVertical: 8,
-    borderRadius: 5,
-  },
-  notificationRead: {
-    opacity: 0.6,
-  },
-  notificationSource: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  notificationDescription: {
-    fontSize: 14,
-    color: '#333',
-  },
-  modalBackground: {
-    flex: 1,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    width: '80%',
-    backgroundColor: '#fff',
     padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    position: 'relative',
+    backgroundColor: '#2A2A2A',
   },
-  closeButton: {
+  backButton: {
     position: 'absolute',
-    top: 10,
-    right: 10,
-    backgroundColor: '#FFC42B',
-    borderRadius: 15,
+    left: 20,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFC42B',
+  },
+  tabsContainer: {
+    backgroundColor: '#1A1A1A',
+    paddingVertical: 5,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  tabsContentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  tabButton: {
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginHorizontal: 5,
+  },
+  tabText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  notificationBox: {
+    backgroundColor: '#F0F0F0', // Whitish-gray background
+    borderRadius: 10,
+    marginVertical: 10,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  leftContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  profilePicture: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
+  },
+  notificationDetails: {
+    flex: 1,
+  },
+  notificationTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000000', // Black text
+  },
+  notificationName: {
+    fontSize: 16,
+    color: '#000000', // Black text
+  },
+  notificationService: {
+    fontSize: 14,
+    color: '#000000', // Black text
+  },
+  notificationJoined: {
+    fontSize: 14,
+    color: '#6F6F6F', // Gray text
+  },
+  rightImage: {
     width: 30,
     height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#000',
-  },
-  modalDescription: {
-    fontSize: 16,
-    marginBottom: 20,
-    color: '#000',
-  },
-  goToButton: {
-    backgroundColor: '#FFC42B',
     borderRadius: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
   },
-  goToButtonText: {
-    color: '#000',
+  daysAgo: {
+    fontSize: 12,
+    color: '#6F6F6F', // Gray text
+  },
+  rightContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  acceptButton: {
+    backgroundColor: '#4CAF50',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    marginRight: 5,
+  },
+  declineButton: {
+    backgroundColor: '#F44336',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#FFFFFF',
     fontWeight: 'bold',
-    fontSize: 16,
+  },
+  contentContainer: {
+    paddingHorizontal: 10,
+    paddingBottom: 20,
   },
 });
 
-export default Notifications;
+export default Notification;

@@ -7,24 +7,27 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import CustomDrawerContent from './sidebar';
 import NavBar from './nav';
-import MyEventScreen from './myevent';
 import EditScreen from './edit';
 import Profile from './profile';
-import Notifications from './notification';
 import Settings from './settings';
 import Feedback from './feedback';
-import Budget from './budget';
 import Inventory from './inventory';
 import Attendees from './attendee';
 import Dashboard from './dashboard';
-import Event from './event';
-import Services from './services';
 import Schedule from './schedule';
-import About from './about';
-import Contact from './contact';
-import FindEvent from './findevent';
-import Create from './create';
-import ViewSched from './viewsched';
+import Createpackage from './createpackage';
+import ChooseServiceProv from './chooseserviceprov';
+import Package from './package';
+import Equipment from './equipment';
+import Portfolio from './portfolio';
+import ServicePortfolio from './serviceportfolio';
+import EditProfile from './editprofile';
+import AddAnotherAcc from './addanotheracc';
+import CreateSchedule from './createsched';
+import Group from './group';
+import GroupAttendees from './groupattendees';
+import Messages from './messages';
+import Notification from './notification';
 
 
 
@@ -34,9 +37,7 @@ const MainScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       {/* Burger icon to open sidebar */}
-      <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuButton}>
-        <Ionicons name="menu" size={32} color="white" />
-      </TouchableOpacity>
+      
       <Dashboard />
       <NavBar />
     </View>
@@ -47,25 +48,34 @@ const App = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
-        <Drawer.Screen name="MyEventScreen" component={MyEventScreen} options={{ headerShown: false }} />
+        <Drawer.Screen name="Home" component={MainScreen} options={{ headerShown: false }} />
         <Drawer.Screen name="EditScreen" component={EditScreen} options={{ headerShown: false }} />
         <Drawer.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-        <Drawer.Screen name="Notifications" component={Notifications} options={{ headerShown: false }} />
         <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
         <Drawer.Screen name="Feedback" component={Feedback} options={{ headerShown: false }} />
-        <Drawer.Screen name="Budget" component={Budget} options={{ headerShown: false }} />
         <Drawer.Screen name="Inventory" component={Inventory} options={{ headerShown: false }} />
         <Drawer.Screen name="Attendees" component={Attendees} options={{ headerShown: false }} />
         <Drawer.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
-        <Drawer.Screen name="Event" component={Event} options={{ headerShown: false }} />
-        <Drawer.Screen name="Services" component={Services} options={{ headerShown: false }} />
         <Drawer.Screen name="Schedule" component={Schedule} options={{ headerShown: false }} />
-        <Drawer.Screen name="About" component={About} options={{ headerShown: false }} />
-        <Drawer.Screen name="Contact" component={Contact} options={{ headerShown: false }} /> 
-        <Drawer.Screen name="FindEvent" component={FindEvent} options={{ headerShown: false }} />
-        <Drawer.Screen name="Create" component={Create} options={{ headerShown: false }} />
-        <Drawer.Screen name="ViewSched" component={ViewSched} options={{ headerShown: false }} />
+        <Drawer.Screen name="Createpackage" component={Createpackage} options={{ headerShown: false }} />
+        <Drawer.Screen name="ChooseServiceProv" component={ChooseServiceProv} options={{ headerShown: false }} />
+        <Drawer.Screen name="Package" component={Package} options={{ headerShown: false }} />
+        <Drawer.Screen name="Equipment" component={Equipment} options={{ headerShown: false }} />
+        <Drawer.Screen name="Event" component={Package} options={{ headerShown: false }} />
+        <Drawer.Screen name="Portfolio" component={Portfolio} options={{ headerShown: false }} />
+        <Drawer.Screen name="ServicePortfolio" component={ServicePortfolio} options={{ headerShown: false }} />
+        <Drawer.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false }} />
+        <Drawer.Screen name="AddAnotherAcc" component={AddAnotherAcc} options={{ headerShown: false }} />
+        <Drawer.Screen name="CreateSchedule" component={CreateSchedule} options={{ headerShown: false }} />
+        <Drawer.Screen name="Group" component={Group} options={{ headerShown: false }} />
+        <Drawer.Screen name="GroupAttendees" component={GroupAttendees} options={{ headerShown: false }} />
+        <Drawer.Screen name="Messages" component={Messages} options={{ headerShown: false }} />
+        <Drawer.Screen name="Notification" component={Notification} options={{ headerShown: false }} />
+      
+
+
+
+
 
         
 

@@ -9,12 +9,10 @@ const NavBar = () => {
   const [selectedTab, setSelectedTab] = useState('Home');
 
   const tabScreenMapping = {
-    Home: 'Main',
+    Home: 'Home',
     Event: 'Event',
-    Services: 'Services',
+    Group: 'Group',
     Schedule: 'Schedule',
-    About: 'About',
-    Contact: 'Contact'
   };
 
   const handleTabPress = (tab) => {
@@ -29,11 +27,9 @@ const NavBar = () => {
 
   const tabs = [
     { name: 'Home', icon: 'home' },
-    { name: 'Event', icon: 'calendar' },
-    { name: 'Services', icon: 'construct' },
     { name: 'Schedule', icon: 'time' },
-    { name: 'About', icon: 'information-circle' },
-    { name: 'Contact', icon: 'call' },
+    { name: 'Event', icon: 'calendar' },
+    { name: 'Group', icon: 'construct' }
   ];
 
   return (

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
  
   drawerContent: {
     flex: 1,
-    backgroundColor: 'black',
+    
   },
   drawerHeader: {
     height: 150,
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
-      backgroundColor: 'black',
+      backgroundColor: '#95720A',
       height: 60,
       position: 'absolute',
       bottom: 0,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
     },
     selectedContainer: {
-      backgroundColor: '#FFC42B',
+      backgroundColor: '#95720A',
     },
     iconText: {
       marginTop: 4,
@@ -175,6 +175,74 @@ const styles = StyleSheet.create({
         flexGrow: 1, 
         paddingBottom: 20, 
       },
+
+
+
+
+      userInfo: {
+        padding: 20,
+        backgroundColor: 'black',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      userInfoTop: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        
+      },
+      userName: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: 10,
+
+      },
+      userRole: {
+        color: 'white',
+        fontSize: 14,
+        marginTop: 5,
+      },
+      footer: {
+        padding: 20,
+        backgroundColor: 'black',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      footerText: {
+        color: 'white',
+      },
+      flexibleSpace: {
+        flex: 0.8,
+      },
+      dropdown: {
+        backgroundColor: '#2C2C2C',
+        borderRadius: 5,
+        marginTop: 10,
+        padding: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
+      },
+      dropdownItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 5,
+        color: 'white',
+      },
+      dropdownIcon: {
+        marginRight: 10,
+        color: 'white',
+
+      },
+      dropdownItemText: {
+        color: 'white',
+        fontSize: 16,
+
+      },
+
+
+
+
 });
 
 export default styles;
