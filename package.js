@@ -88,7 +88,9 @@ const Package = ({ navigation }) => { // Added navigation prop
               }if (button === 'Inventory') {
                 navigation.navigate('Inventory');  // Navigate to Equipment screen
               }
-              
+              if (button === 'Feedback') {
+               navigation.navigate('Feedback'); // Navigate to Feedback screen
+  }
               
               // Add other button actions as needed
             }}

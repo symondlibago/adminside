@@ -1,12 +1,9 @@
-// App.js
-
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Ionicons } from '@expo/vector-icons';
 import CustomDrawerContent from './sidebar';
-import NavBar from './nav';
+import NavBar from './nav'; // If you need this inside the drawer
 import EditScreen from './edit';
 import Profile from './profile';
 import Settings from './settings';
@@ -29,39 +26,24 @@ import GroupAttendees from './groupattendees';
 import Messages from './messages';
 import Notification from './notification';
 
-
-
 const Drawer = createDrawerNavigator();
-
-const MainScreen = ({ navigation }) => {
-  return (
-    <View style={{ flex: 1 }}>
-      {/* Burger icon to open sidebar */}
-      
-      <Dashboard />
-      <NavBar />
-    </View>
-  );
-};
 
 const App = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen name="Home" component={MainScreen} options={{ headerShown: false }} />
+        <Drawer.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
+        <Drawer.Screen name="Package" component={Package} options={{ headerShown: false }} />
         <Drawer.Screen name="EditScreen" component={EditScreen} options={{ headerShown: false }} />
         <Drawer.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
         <Drawer.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
         <Drawer.Screen name="Feedback" component={Feedback} options={{ headerShown: false }} />
         <Drawer.Screen name="Inventory" component={Inventory} options={{ headerShown: false }} />
         <Drawer.Screen name="Attendees" component={Attendees} options={{ headerShown: false }} />
-        <Drawer.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
         <Drawer.Screen name="Schedule" component={Schedule} options={{ headerShown: false }} />
         <Drawer.Screen name="Createpackage" component={Createpackage} options={{ headerShown: false }} />
         <Drawer.Screen name="ChooseServiceProv" component={ChooseServiceProv} options={{ headerShown: false }} />
-        <Drawer.Screen name="Package" component={Package} options={{ headerShown: false }} />
         <Drawer.Screen name="Equipment" component={Equipment} options={{ headerShown: false }} />
-        <Drawer.Screen name="Event" component={Package} options={{ headerShown: false }} />
         <Drawer.Screen name="Portfolio" component={Portfolio} options={{ headerShown: false }} />
         <Drawer.Screen name="ServicePortfolio" component={ServicePortfolio} options={{ headerShown: false }} />
         <Drawer.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false }} />
@@ -71,18 +53,6 @@ const App = () => {
         <Drawer.Screen name="GroupAttendees" component={GroupAttendees} options={{ headerShown: false }} />
         <Drawer.Screen name="Messages" component={Messages} options={{ headerShown: false }} />
         <Drawer.Screen name="Notification" component={Notification} options={{ headerShown: false }} />
-      
-
-
-
-
-
-        
-
-        
-
-
-        
       </Drawer.Navigator>
     </NavigationContainer>
   );
